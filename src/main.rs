@@ -8,6 +8,8 @@ fn index() -> &'static str {
     "KEEPITUP - Backend, stop looking round lol."
 }
 
+use rocket::Config;
+use rocket::figment::Provider;
 use rocket::form::Form;
 use std::time::Duration;
 
