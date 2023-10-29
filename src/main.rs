@@ -32,10 +32,10 @@ async fn report(report: Form<MentalReport<'_>>) -> String {
         .send_message(
             format!(
             "Given the discomfort of a person on a scale of 1-100: {}
-             As well as the anxiety of a person on a scale of 1-100: {}
-             As well as the stress of a person on a scale of 1-100: {}
+             As well as the anxiety: {}
+             As well as the stress: {}
              and a short text that explains the persons circumstances in life: {}.
-             Generate a list of 3 sentences formatted as bullet points that could improve that persons life.",report.discomfort, report.anxiety, report.stress, report.circumstances)
+             Make a list of 3 sentences formatted as bullet points that could improve that persons life.",report.discomfort, report.anxiety, report.stress, report.circumstances)
         )
         .await.expect("PROBLEM GETTING RESPONSE");
     response.message().content.clone()
