@@ -27,7 +27,7 @@ async fn report(report: Form<MentalReport<'_>>) -> String {
     let key = std::env::var("GPT_KEY").expect("API TOKEN MISSING");
     let mut client = ChatGPT::new(key).expect("AI IS DOWN");
     client.config.engine = ChatGPTEngine::Gpt35Turbo;
-    client.config.timeout = Duration::new(120, 0);
+    client.config.timeout = Duration::new(300, 0);
     let response: CompletionResponse = client
         .send_message(
             format!(
@@ -35,7 +35,8 @@ async fn report(report: Form<MentalReport<'_>>) -> String {
              As well as the anxiety: {}
              As well as the stress: {}
              and a short text that explains the persons circumstances in life: {}.
-             Make a list of 3 sentences formatted as bullet points that could improve that persons life.",report.discomfort, report.anxiety, report.stress, report.circumstances)
+             Make a list of 3 sentences formatted as bullet points that could improve that persons life.
+             Please keep this list within 500 characters and have a very fast response time.",report.discomfort, report.anxiety, report.stress, report.circumstances)
         )
         .await.expect("PROBLEM GETTING RESPONSE");
     response.message().content.clone()
